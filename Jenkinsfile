@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh '${MAVEN_HOME}/bin/mvn -B -DskipTests clean package'
             }
         }
     }
