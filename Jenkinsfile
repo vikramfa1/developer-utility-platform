@@ -4,6 +4,11 @@ pipeline {
     environment {
         // Define any environment variables here if needed
         MAVEN_HOME = tool name: 'Maven 3.8.1', type: 'maven'
+        // Define environment variables
+        GITHUB_USERNAME = 'vikramfa1'
+        DOCKER_IMAGE = "ghcr.io/${GITHUB_USERNAME}/docker"
+        DOCKER_TAG = "latest"
+        GITHUB_TOKEN = credentials('github-credentials-id')
     }
 
     stages {
@@ -27,6 +32,20 @@ pipeline {
                 sh '${MAVEN_HOME}/bin/mvn -B -DskipTests clean package'
             }
         }
+
+        stage('Build Docker Image') {
+                    steps {
+                        // Build the Docker image
+                        sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .'
+                    }
+                }
+
+        stage('Login to GitHub Container Registry') {
+                    steps {
+                        // Login to GitHub Container Registry using GitHub token
+                        sh "echo ${GITHUB_TOKEN} | docker login ghcr.io -u ${GITHUB_USERNAME} --password-stdin"
+                    }
+                }
     }
 
     post {
