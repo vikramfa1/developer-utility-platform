@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+            echo "${MAVEN_HOME}/bin/mvn clean compile"
                 // Checkout source code from GitHub
                 git url: 'https://github.com/vikramfa1/developer-utility-platform.git'
             }
@@ -16,6 +17,7 @@ pipeline {
 
         stage('Compile') {
             steps {
+                echo "${MAVEN_HOME}/bin/mvn clean compile"
                 // Compile the project using Maven
                 sh "${MAVEN_HOME}/bin/mvn clean compile"
             }
