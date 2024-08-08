@@ -3,7 +3,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
-import io.kubernetes.client.openapi.ApiResponse;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
@@ -12,7 +11,6 @@ import io.kubernetes.client.openapi.models.V1LoadBalancerIngress;
 import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.openapi.models.V1Namespace;
 import io.kubernetes.client.openapi.models.V1Deployment;
-import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.util.Config;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -56,7 +54,7 @@ public class KubernetesService {
     }
 
     public void createNamespacedSecret(String namespace) throws Exception {
-        V1Secret service = loadYamlFromResources("secret.yaml", V1Secret.class);
+        V1Secret service = loadYamlFromResources("my-app-sec.yaml", V1Secret.class);
         CoreV1Api.APIcreateNamespacedSecretRequest createResult = coreV1Api.createNamespacedSecret(namespace, service);
         createResult.execute();
     }
