@@ -8,7 +8,7 @@
                     <id>github-credentials-id</id>
                     <description>GitHub Credentials</description>
                     <username>vikramfa1</username>
-                    <password>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</password>
+                    <password>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</password>
                 </com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
             </credentials>
         </com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
@@ -16,9 +16,9 @@
     <scm class="org.jenkinsci.plugins.github_branch_source.GitHubBranchSource">
         <id>github-source-id</id>
         <apiUri>https://api.github.com</apiUri>
-        <credentialsId>github-credentials-id</credentialsId>
+        <credentialsId>ee031808-8be9-4ae9-8343-d2508217b74c</credentialsId>
         <repoOwner>vikramfa1</repoOwner>
-        <repository>https://github.com/vikramfa1/developer-utility-platform.git</repository>
+        <repository>https://github.com/vikramfa1/bootstrapApplication.git</repository>
         <traits>
             <org.jenkinsci.plugins.github__branch__source.GitHubBranchDiscovery>
                 <strategyId>1</strategyId>

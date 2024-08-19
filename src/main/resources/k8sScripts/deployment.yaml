@@ -15,6 +15,10 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: ghcr.io/vikramfa1/docker:latest
           ports:
             - containerPort: 8081
+          image: ghcr.io/vikramfa1/developer-utility-app:latest
+      imagePullSecrets:
+        - name: github-registry-secret
+
+

@@ -6,7 +6,7 @@ pipeline {
         MAVEN_HOME = tool name: 'Maven 3.8.1', type: 'maven'
         // Define environment variables
         GITHUB_USERNAME = 'vikramfa1'
-        DOCKER_IMAGE = "ghcr.io/${GITHUB_USERNAME}/docker"
+        DOCKER_IMAGE = "ghcr.io/${GITHUB_USERNAME}/developer-utility-app"
         DOCKER_TAG = "latest"
         GITHUB_TOKEN = credentials('github-credentials-id')
     }
@@ -41,9 +41,25 @@ pipeline {
                 }
 
         stage('Login to GitHub Container Registry') {
+            steps {
+                // Login to GitHub Container Registry using GitHub token
+                sh "echo ${GITHUB_TOKEN} | docker login ghcr.io -u ${GITHUB_USERNAME} --password-stdin"
+            }
+        }
+
+        stage('Push Docker Image') {
                     steps {
-                        // Login to GitHub Container Registry using GitHub token
-                        sh "echo ${GITHUB_TOKEN} | docker login ghcr.io -u ${GITHUB_USERNAME} --password-stdin"
+                        script {
+                            sh 'docker push ${DOCKER_IMAGE}:${DOCKER_TAG}'
+                        }
+                    }
+                }
+
+                stage('Logout from GitHub Container Registry') {
+                    steps {
+                        script {
+                            sh 'docker logout ghcr.io'
+                        }
                     }
                 }
     }

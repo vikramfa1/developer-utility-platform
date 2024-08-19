@@ -1,36 +1,28 @@
-package com.example.demo.service;
+package com.example.demo.service.springApp;
 
+import com.example.demo.configuration.JenkinsConfig;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.io.IOException;
 
 public class JenkinsJobConfigFetcher {
 
-    private static final String JENKINS_URL = "http://localhost:8080"; // Your Jenkins server URL
-    private static final String JENKINS_USER = "vikramfa1"; // Jenkins username
-    private static final String JENKINS_TOKEN = "11eb5658c4878b1bea361852c0e1b6db80"; // Jenkins API token
+    @Autowired
+    private JenkinsConfig jenkinsConfig;
 
-    public static void main(String[] args) {
-        try {
-            String jobName = "Developer-utility-pipeline"; // Replace with your job name
-            String xmlConfig = getJobConfigXml(jobName);
-            System.out.println("Job Configuration XML:\n" + xmlConfig);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static String getJobConfigXml(String jobName) throws IOException {
+    private String getJobConfigXml(String jobName) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         // Construct the request URL to fetch job configuration XML
-        String url = JENKINS_URL + "/job/" + jobName + "/config.xml";
+        String url = jenkinsConfig.getUrl() + "/job/" + jobName + "/config.xml";
 
         // Create the request
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Basic " + getBase64Credentials(JENKINS_USER, JENKINS_TOKEN))
+                .header("Authorization", "Basic " + getBase64Credentials(jenkinsConfig.getUsername(), jenkinsConfig.getToken()))
                 .build();
 
         // Execute the request and get the response

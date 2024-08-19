@@ -1,18 +1,21 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.KubernetesService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.DTO.OperationsDTO;
+import com.example.demo.DTO.OperationsResponseDTO;
+import com.example.demo.service.springApp.KubernetesDeploymentCommand;
+import com.example.demo.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DeploymentController {
 
-    private final KubernetesService kubernetesService;
+    @Autowired
+    private KubernetesDeploymentCommand kubernetesService;
 
-    public DeploymentController(KubernetesService kubernetesService) {
-        this.kubernetesService = kubernetesService;
-    }
+    @Autowired
+    private TaskService taskService;
 
     @GetMapping("/deploy")
     public String deploy(@RequestParam String namespace) throws Exception {
@@ -25,6 +28,13 @@ public class DeploymentController {
         Thread.sleep(10000); // adjust the sleep time as needed
 
         return kubernetesService.getServiceEndpoint(namespace, "my-app-service");
+    }
+
+    @PostMapping("/task")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public OperationsResponseDTO executeTask(@RequestBody OperationsDTO operationsDTO) throws Exception {
+        taskService.executeTask(operationsDTO);
+        return OperationsResponseDTO.builder().status("submitted").build();
     }
 }
 

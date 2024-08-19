@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7InVzZXJuYW1lIjoidmlrcmFtZmExIiwicGFzc3dvcmQiOiJnaHBfc1N2a25oRFVob0NvRWJJbEpIY3BVaXcxYTFyaHExMW5PaW11IiwiZW1haWwiOiJ2aWtyYW1mYTFAZ21haWwuY29tIiwiYXV0aCI6ImRtbHJjbUZ0Wm1FeE9tZG9jRjl6VTNacmJtaEVWV2h2UTI5RllrbHNTa2hqY0ZWcGR6RmhNWEpvY1RFeGJrOXBiWFU9In19fQ==
+kind: Secret
+metadata:
+  name: github-registry-secret
+  namespace: my-namespace
+type: kubernetes.io/dockerconfigjson

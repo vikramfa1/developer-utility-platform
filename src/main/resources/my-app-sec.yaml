@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: github-registry-secret
-  namespace: my-namespace # Change to your namespace
-type: kubernetes.io/dockerconfigjson
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7InVzZXJuYW1lIjoidmlrcmFtZmExIiwicGFzc3dvcmQiOiJnaHBfU0lnZG1tMm85TjZYcTNQQ0xabDJETHhPRHFJdm1QM293UTJRIiwiYXV0aCI6ImJhc2U2NF9lbmNvZGVkX2F1dGgifX19
